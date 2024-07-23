@@ -39,6 +39,8 @@ class TextcubeToJekyllConverter(BaseModel):
             self.run_backup_converter()
         if self.archive_org_backup_path:
             self.run_archives_org_converter()
+        else:
+            logger.warning("Specify backup_xml or archive_org_backup_path")
 
     def run_backup_converter(self):
         logger.info("Converting backup.xml...")

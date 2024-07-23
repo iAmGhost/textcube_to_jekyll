@@ -53,7 +53,7 @@ def parse_archive_org_html(element: Element):
         for child in element.cssselect("div.article")[0].iterchildren()
     ])
 
-    content_str = re.sub(r'[https:]?\/\/web.archive.org\/web\/.+?\/', '', content_str)
+    content_str = re.sub(r'(https:)?\/\/web.archive.org\/web\/.+?\/', '', content_str)
 
     content_str = re.sub(
         r"""<p.+?class="moreless_fold">.+?onclick="toggleMoreLess\(this, '.+?','(?P<openText>.+?)','(?P<closeText>.+?)'\);.+?<div.+?class="moreless_content".+?>(?P<content>.+?)<\/div>""",
