@@ -1,9 +1,13 @@
 [tool.poetry]
-name = "tc"
+name = "textcube_to_jekyll"
 version = "0.1.0"
 description = ""
 authors = ["Daehan Kim <really@iamghost.kr>"]
 readme = "README.md"
+
+packages = [
+    { include = "textcube_to_jekyll" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -18,9 +22,6 @@ more-itertools = "^10.3.0"
 purl = "^1.6"
 cssselect = "^1.2.0"
 
-
-[tool.poetry.group.dev.dependencies]
-jupyterlab = "^4.2.3"
 
 [tool.poetry.scripts]
 textcube_to_jekyll = 'textcube_to_jekyll.cli:main'
