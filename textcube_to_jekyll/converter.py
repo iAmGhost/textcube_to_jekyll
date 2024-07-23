@@ -35,6 +35,13 @@ class TextcubeToJekyllConverter(BaseModel):
         self._post_template = get_template('post.html')
 
     def run(self):
+        if self.backup_xml:
+            self.run_backup_converter()
+        if self.archive_org_backup_path:
+            self.run_archives_org_converter()
+
+    def run_backup_converter(self):
+        logger.info("Converting backup.xml...")
         assert self.backup_xml.is_file(), f"{self.backup_xml} is not a file"
 
         posts_folder = self.jekyll_root.joinpath('tt/_posts/')

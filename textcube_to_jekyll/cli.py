@@ -35,7 +35,7 @@ def main(
     if jekyll_root is None:
         jekyll_root = Path("blog/")
 
-    TextcubeToJekyllConverter(
+    converter = TextcubeToJekyllConverter(
         backup_xml=backup_xml,
         jekyll_root=jekyll_root,
         post_id=post_id,
@@ -44,7 +44,9 @@ def main(
         archive_org_backup_path=archive_org_backup_path,
         site_url=site_url,
         sample=sample,
-    ).run_archives_org_converter()
+    )
+
+    converter.run()
 
 
 if __name__ == "__main__":
