@@ -1,0 +1,42 @@
+---
+---
+
+.ttml-moreless {
+    .ttml-moreless__openButton {
+        display: block;
+    }
+    .ttml-moreless__closeButton {
+        display: none;
+    }
+    .ttml-moreless__content {
+        display: none;
+    }
+
+    &.ttml-moreless--opened {
+        .ttml-moreless__openButton {
+            display: none;
+        }
+        .ttml-moreless__closeButton {
+            display: block;
+        }
+        .ttml-moreless__content {
+            display: block;
+        }
+    }
+
+}
+
+.ttml-attach {
+    text-align: center;
+}
+
+#ttml-footnote-container {
+    &.active {
+        border-top: solid 1px #ccc;
+        margin-top: 15px;
+    }
+}
+
+.ttml-footnote {
+    color: red;
+}

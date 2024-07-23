@@ -1,0 +1,62 @@
+---
+layout: post
+title: {{ post.title|json }}
+date: "{{ post.created }}"
+categories: {{ post.category|json }}
+redirect_from: /tt/{{ post.id }}
+---
+
+{% for content in post.contents %}
+{{ content.text|convert_ttml(blog=blog, post=post) }}
+{% endfor %}
+
+<div id="ttml-footnote-container"></div>
+
+<div class="comments">
+    <h2>Comments</h2>
+    {% if not post.comments %}
+        No comments.
+    {% endif %}
+    {% for comment in post.comments %}
+    {% set commenter = comment.commenter %}
+
+    <div class="comment">
+        {% if commenter.homepage %}<a href="{{ commenter.homepage }}" target="_blank">{% endif %}
+        {% if comment.secret %}
+            익명
+        {% else %}
+            {{ commenter.name }}
+        {% endif %}
+        {% if comment.commenter.homepage %}</a>{% endif %}<br />
+        {{ comment.written|date_format("YYYY-MM-DD HH:mm:ss") }}<br />
+        {% if comment.secret %}
+        <p>비공개 댓글입니다.</p>
+        {% else %}
+        <p>{{ comment.content }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="comments">
+    <h2>Trackbacks</h2>
+    {% if not post.trackbacks %}
+        No trackbacks.
+    {% endif %}
+    {% for trackback in post.trackbacks %}
+    <div class="comment"><br />
+        <a href="{{ trackback.url }}">{{ trackback.title }} - {{ trackback.site }}</a><br />
+        {{ trackback.received|date_format("YYYY-MM-DD HH:mm:ss") }}
+        <p>{{ trackback.excerpt }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if enable_archive_org_link %}
+<div class="about-archive">
+    이 페이지는 <a href="/about">백업으로부터 자동 생성</a>된 페이지입니다. <br />
+    <p>
+        <a target="_blank" href="https://web.archive.org/web/{{ archive_org_timestamp }}/{{ blog.site_url }}/{{ post.id }}">[archive.org 에서 보기]</a>
+    </p>
+</div>
+{% endif %}

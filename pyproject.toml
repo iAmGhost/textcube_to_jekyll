@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "tc"
+version = "0.1.0"
+description = ""
+authors = ["Daehan Kim <really@iamghost.kr>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.8.2"
+pendulum = "^3.0.0"
+lxml = "^5.2.2"
+jinja2 = "^3.1.4"
+markdownify = "^0.13.1"
+typer = "^0.12.3"
+tqdm = "^4.66.4"
+more-itertools = "^10.3.0"
+purl = "^1.6"
+cssselect = "^1.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+jupyterlab = "^4.2.3"
+
+[tool.poetry.scripts]
+textcube_to_jekyll = 'textcube_to_jekyll.cli:main'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

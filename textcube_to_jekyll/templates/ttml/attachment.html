@@ -1,0 +1,11 @@
+<div class="ttml-attachment">
+    {% for attachment in attachments %}
+        {% set url = '/tt/attach/%d/%s'|format(attachment.seq, attachment.filename) %}
+        {% if attachment.filename.split('.')[-1] in ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
+        <a href="{{ url }}"><img src="{{ url }}" {{ attachment.attributes }} /></a>
+        {% else %}
+        <a href="{{ url }}">{{ attachment.filename }}</a>
+        {% endif %}
+    {% endfor %}
+
+</div>
