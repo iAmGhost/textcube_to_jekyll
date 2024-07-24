@@ -6,7 +6,7 @@ authors = ["Daehan Kim <really@iamghost.kr>"]
 readme = "README.md"
 
 packages = [
-    { include = "textcube_to_jekyll" }
+  { include = "textcube_to_jekyll" }
 ]
 
 [tool.poetry.dependencies]
@@ -24,7 +24,7 @@ cssselect = "^1.2.0"
 
 
 [tool.poetry.scripts]
-textcube_to_jekyll = 'textcube_to_jekyll.cli:main'
+textcube_to_jekyll = 'textcube_to_jekyll.cli:app'
 
 [build-system]
 requires = ["poetry-core"]

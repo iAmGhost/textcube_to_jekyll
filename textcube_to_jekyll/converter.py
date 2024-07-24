@@ -24,11 +24,12 @@ class TextcubeToJekyllConverter(BaseModel):
     backup_xml: Optional[Path] = None
     jekyll_root: Optional[Path] = None
     post_id: Optional[List[int]] = None
-    enable_archive_org_link: bool = True
-    archive_org_timestamp: str = '20211231'
+    archive_org_link: bool = True
+    archive_org_link_timestamp: str = '20211231'
     site_url: str = 'http://pig-min.com/tt'
     sample: int = 0
     archive_org_backup_path: Optional[Path] = None
+    slug_max_length: int = 30
 
     def model_post_init(self, __context):
         self._blog = Blog(site_url=self.site_url)
@@ -37,14 +38,13 @@ class TextcubeToJekyllConverter(BaseModel):
     def run(self):
         if self.backup_xml:
             self.run_backup_converter()
+
         if self.archive_org_backup_path:
             self.run_archives_org_converter()
-        else:
-            logger.warning("Specify backup_xml or archive_org_backup_path")
 
     def run_backup_converter(self):
-        logger.info("Converting backup.xml...")
-        assert self.backup_xml.is_file(), f"{self.backup_xml} is not a file"
+        logger.info(f"{self.backup_xml} 에서 파일 추출 중...")
+        assert self.backup_xml.is_file(), f"{self.backup_xml}은 파일이 아닌 것 같습니다."
 
         posts_folder = self.jekyll_root.joinpath('tt/_posts/')
         attachments_folder = self.jekyll_root.joinpath('tt/attach/')
@@ -94,7 +94,7 @@ class TextcubeToJekyllConverter(BaseModel):
 
 
     def run_archives_org_converter(self):
-        logger.info("Coverting archive.org html files...")
+        logger.info("archive.org HTML 파일 변환중...")
 
         assert self.archive_org_backup_path.is_dir(), f"{self.archive_org_backup_path} is not a directory"
 
@@ -125,14 +125,14 @@ class TextcubeToJekyllConverter(BaseModel):
         filename = "{date}-{id}-{slug}.html".format(
             date=post.published.format('YYYY-MM-DD'),
             id=post.id,
-            slug=slugify(post.slogan, allow_unicode=True)[:30],
+            slug=slugify(post.slogan, allow_unicode=True)[:self.slug_max_length],
         )
 
         content = self._post_template.render(
             post=post,
             blog=self._blog,
-            enable_archive_org_link=self.enable_archive_org_link,
-            archive_org_timestamp=self.archive_org_timestamp,
+            enable_archive_org_link=self.archive_org_link,
+            archive_org_timestamp=self.archive_org_link_timestamp,
         )
 
         out_path = posts_folder.joinpath(f'{filename}')

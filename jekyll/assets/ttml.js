@@ -37,9 +37,7 @@
 
         for (const footnote of document.querySelectorAll('.ttml-footnote')) {
             const footnoteContent = footnote.innerHTML;
-            // show content as tooltip when focus to link
-
-            footnote.innerHTML = `<sup><a href="#ttml-footnote-ref-${i + 1}" id="ttml-footnote-ref-${i + 1}-link"   >[${i + 1}]</a></sup>`;
+            footnote.innerHTML = `<sup><a href="#ttml-footnote-ref-${i + 1}" id="ttml-footnote-ref-${i + 1}-link"">[${i + 1}]</a></sup>`;
 
             const footnoteTextElem = document.createElement('div');
             footnoteTextElem.id = `ttml-footnote-ref-${i + 1}`;
