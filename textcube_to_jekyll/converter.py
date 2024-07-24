@@ -125,7 +125,7 @@ class TextcubeToJekyllConverter(BaseModel):
         filename = "{date}-{id}-{slug}.html".format(
             date=post.published.format('YYYY-MM-DD'),
             id=post.id,
-            slug=slugify(post.slogan, allow_unicode=True),
+            slug=slugify(post.slogan, allow_unicode=True)[:30],
         )
 
         content = self._post_template.render(
